@@ -16,7 +16,7 @@ EXPOSE 80
 
 # run in foreground
 
-CMD ["-g daemon off;"]
+CMD ["-g", "daemon off;"]
 
-ENTRYPOINT ["/usr/sbin/nginx"]
+ENTRYPOINT ["nginx"]
 
