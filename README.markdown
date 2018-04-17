@@ -4,3 +4,4 @@ repository mirror.
 This container was set up based on incredibly helpful posts from:
 
  - Michał Czeraszkiewicz, <http://czerasz.com/2015/03/30/nginx-caching-tutorial/>
+ - James Nzomo, <http://tdt.rocks/repo_cache_ft_nginx.html>
