@@ -2,4 +2,5 @@ docker run \
 	--interactive=true \
 	--tty=true \
 	--rm=true \
-	localhost/afcowie/proxy
+	--volume=repository-package-cache:/var/cache/nginx:z \
+	localhost/afcowie/proxy:latest
