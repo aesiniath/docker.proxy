@@ -1,10 +1,20 @@
-FROM afcowie/fedora:27
+FROM localhost/afcowie/debian:stretch
 
-RUN dnf install -y \
-	squid 
+# base image sets non-interactive and locale
 
-ADD squid.conf /etc/squid/squid.conf
+RUN apt-get update
+RUN apt-get install nginx
 
-EXPOSE 3128
+# copy in nginx configuration files. We do our work in proxy.conf in
+# /etc/nginx/conf.d/ but have to remove the default server otherwise it will
+# consume port 80 connections.
 
-ENTRYPOINT ["/usr/sbin/squid", "--foreground"]
+RUN rm /etc/nginx/sites-enabled/default
+COPY files/. /
+
+EXPOSE 80
+
+CMD ["-g daemon off;"]
+
+ENTRYPOINT ["/usr/sbin/nginx"]
+
