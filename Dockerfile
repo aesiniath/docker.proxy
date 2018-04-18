@@ -7,6 +7,7 @@ FROM docker.io/library/debian:stretch
 ENV DEBIAN_FRONTEND noninteractive
 
 COPY files/etc/apt/. /etc/apt
+COPY files/root/. /root
 
 RUN apt-get update
 
