@@ -1,3 +1,5 @@
+#!/bin/sh -xe
+
 docker run \
 	--name="proxy" \
 	--interactive=true \
