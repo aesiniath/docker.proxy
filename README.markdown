@@ -1,5 +1,88 @@
+Linux Package Proxy Cache
+=========================
+
 Proxy server intended for caching _.rpm_ and _.deb_ packages from a Linux
-repository mirror. 
+repository mirror.
+
+Usage
+=====
+
+Run proxy container
+-------------------
+
+```text
+$ docker run \
+	--name="proxy" \
+	--interactive=true \
+	--tty=true \
+	--rm=true \
+	--volume=repository-package-cache:/var/cache/nginx:Z \
+	localhost/afcowie/proxy:latest
+```
+
+runs in foreground and logs when requests hit its cache. In this repo this
+command is conveniently contained in _./run.sh_ so:
+
+```text
+$ ./run.sh
+```
+
+Change configuration of new images
+----------------------------------
+
+Change the repository configurations in your base image to point to the
+internal package mirror:
+
+### Fedora
+
+In _/etc/yum.repos.d/_ adjust _fedora.repo_ to have:
+
+```text
+baseurl=http://172.17.0.2/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
+```
+and in _fedora-updates.repo_ to have:
+
+```text
+baseurl=http://172.17.0.2/pub/fedora/linux/updates/$releasever/$basearch/
+```
+
+### Debian
+
+Adjust _/etc/apt/sources.list_ to have:
+
+```text
+deb http://172.17.0.2/pub/debian/ stretch main
+deb http://172.17.0.2/pub/debian/ stretch-updates main
+```
+
+Use normally
+------------
+
+Build on a [Fedora](https://github.com/afcowie/docker-fedora) base image:
+
+```text
+$ docker run -i -t --rm localhost/afcowie/fedora:27 bash
+ab317b9920d3 / # dnf install -y findutils
+...
+```
+
+or building on a [Debian](https://github.com/afcowie/docker-debian) base image:
+
+```text
+$ docker run -i -t --rm localhost/afcowie/debian:stretch bsah
+d874ac8dd5d4 / # apt-get install findutils
+...
+```
+
+Enjoy!
+
+Bugs
+====
+
+See [TODO](TODO.markdown).
+
+Acknowledgements
+================
 
 This container was set up based on incredibly helpful posts from:
 
