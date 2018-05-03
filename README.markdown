@@ -12,9 +12,10 @@ Run proxy container
 
 ```text
 $ docker run \
-	--name="proxy" \
+	--name="packages" \
 	--rm=true \
 	--volume=repository-package-cache:/var/cache/nginx:Z \
+	--network="proxy"
 	localhost/afcowie/proxy:latest
 ```
 
@@ -36,12 +37,12 @@ internal package mirror:
 In _/etc/yum.repos.d/_ adjust _fedora.repo_ to have:
 
 ```text
-baseurl=http://172.17.0.2/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
+baseurl=http://packages/fedora/linux/releases/$releasever/Everything/$basearch/os/
 ```
 and in _fedora-updates.repo_ to have:
 
 ```text
-baseurl=http://172.17.0.2/pub/fedora/linux/updates/$releasever/$basearch/
+baseurl=http://packages/fedora/linux/updates/$releasever/$basearch/
 ```
 
 ### Debian
@@ -49,8 +50,8 @@ baseurl=http://172.17.0.2/pub/fedora/linux/updates/$releasever/$basearch/
 Adjust _/etc/apt/sources.list_ to have:
 
 ```text
-deb http://172.17.0.2/pub/debian/ stretch main
-deb http://172.17.0.2/pub/debian/ stretch-updates main
+deb http://packages/debian/ stretch main
+deb http://packages/debian/ stretch-updates main
 ```
 
 Use normally
@@ -59,7 +60,7 @@ Use normally
 Build on a [Fedora](https://github.com/afcowie/docker-fedora) base image:
 
 ```text
-$ docker run -i -t --rm localhost/afcowie/fedora:27 bash
+$ docker run -i -t --rm --network="proxy" localhost/afcowie/fedora:27 bash
 ab317b9920d3 / # dnf install -y findutils
 ...
 ```
@@ -67,7 +68,7 @@ ab317b9920d3 / # dnf install -y findutils
 or building on a [Debian](https://github.com/afcowie/docker-debian) base image:
 
 ```text
-$ docker run -i -t --rm localhost/afcowie/debian:stretch bsah
+$ docker run -i -t --rm  --network="proxy" localhost/afcowie/debian:stretch bsah
 d874ac8dd5d4 / # apt-get install findutils
 ...
 ```
