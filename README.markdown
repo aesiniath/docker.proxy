@@ -73,6 +73,10 @@ d874ac8dd5d4 / # apt-get install findutils
 ...
 ```
 
+You don't need to use the Docker Networks mechanism, but if you don't you will
+need to tell your containers how to reach the instance that is running the
+package repository cache.
+
 Enjoy!
 
 Bugs
