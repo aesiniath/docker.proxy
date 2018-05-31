@@ -35,7 +35,5 @@ EXPOSE 80
 
 # run in foreground
 
-CMD ["-g", "daemon off;"]
-
-ENTRYPOINT ["nginx"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
