@@ -5,4 +5,4 @@ docker run \
 	--rm=true \
 	--volume=repository-package-cache:/var/cache/nginx:Z \
 	--network="proxy" \
-	localhost/afcowie/proxy:latest
+	oprdyn/proxy:latest

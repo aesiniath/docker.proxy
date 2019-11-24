@@ -1,4 +1,4 @@
-FROM docker.io/library/debian:stretch
+FROM docker.io/library/debian:buster
 
 # This clones the work in our standard in-house base image, but we want this
 # container to be stand-alone (and more to the point, be the first thing
