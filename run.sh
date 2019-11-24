@@ -1,5 +1,7 @@
 #!/bin/sh -xe
 
+docker network create proxy || true
+
 docker run \
 	--name="packages" \
 	--rm=true \
