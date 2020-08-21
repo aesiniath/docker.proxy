@@ -1,8 +1,8 @@
 #!/bin/sh -xe
 
-docker network create proxy || true
+podman network create proxy || true
 
-docker run \
+podman run \
 	--name="packages" \
 	--rm=true \
 	--volume=repository-package-cache:/var/cache/nginx:Z \

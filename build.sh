@@ -1,3 +1,3 @@
-docker build \
+podman build \
 	--tag docker.io/oprdyn/proxy:latest \
 	.
