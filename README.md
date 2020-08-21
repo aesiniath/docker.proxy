@@ -15,8 +15,7 @@ $ docker run \
 	--name="packages" \
 	--rm=true \
 	--volume=repository-package-cache:/var/cache/nginx:Z \
-	--network="proxy"
-	localhost/afcowie/proxy:latest
+	docker.io/aesiniath/proxy:latest
 ```
 
 runs in foreground and logs when requests hit its cache. In this repo this
@@ -37,12 +36,12 @@ internal package mirror:
 In _/etc/yum.repos.d/_ adjust _fedora.repo_ to have:
 
 ```text
-baseurl=http://packages/fedora/linux/releases/$releasever/Everything/$basearch/os/
+baseurl=http://127.0.0.1:1999/fedora/linux/releases/$releasever/Everything/$basearch/os/
 ```
 and in _fedora-updates.repo_ to have:
 
 ```text
-baseurl=http://packages/fedora/linux/updates/$releasever/$basearch/
+baseurl=http://127.0.0.1:1999/fedora/linux/updates/$releasever/$basearch/
 ```
 
 ### Debian
@@ -50,14 +49,14 @@ baseurl=http://packages/fedora/linux/updates/$releasever/$basearch/
 Adjust _/etc/apt/sources.list_ to have:
 
 ```text
-deb http://packages/debian/ stretch main
-deb http://packages/debian/ stretch-updates main
+deb http://127.0.0.1:1999/debian/ stretch main
+deb http://127.0.0.1:1999/debian/ stretch-updates main
 ```
 
 Use normally
 ------------
 
-Build on a [Fedora](https://github.com/afcowie/docker-fedora) base image:
+Build on a [Fedora](https://github.com/aesiniath/docker-fedora) base image:
 
 ```text
 $ docker run -i -t --rm --network="proxy" localhost/afcowie/fedora:27 bash
@@ -68,14 +67,10 @@ ab317b9920d3 / # dnf install -y findutils
 or building on a [Debian](https://github.com/afcowie/docker-debian) base image:
 
 ```text
-$ docker run -i -t --rm  --network="proxy" localhost/afcowie/debian:stretch bsah
+$ docker run -i -t --rm docker.io/aesiniath/debian:stretch bash
 d874ac8dd5d4 / # apt-get install findutils
 ...
 ```
-
-You don't need to use the Docker Networks mechanism, but if you don't you will
-need to tell your containers how to reach the instance that is running the
-package repository cache.
 
 Enjoy!
 
