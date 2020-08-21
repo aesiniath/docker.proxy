@@ -1,3 +1,3 @@
 podman build \
-	--tag docker.io/oprdyn/proxy:latest \
+	--tag docker.io/aesiniath/proxy:latest \
 	.
